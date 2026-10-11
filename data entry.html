@@ -1,0 +1,1462 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+  <title>জমি ও দলিল রেজিষ্ট্রেশন তথ্য ফরম</title>
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: [
+              '"Noto Sans Bengali"',
+              'system-ui',
+              'sans-serif'
+            ]
+          },
+          colors: {
+            brand: {
+              50: '#eff6f5',
+              100: '#d5e9e6',
+              500: '#14766b',
+              600: '#0f635a',
+              700: '#0c504a',
+              900: '#0a2f2c'
+            }
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    .inp {
+      width: 100%;
+      height: 42px;
+      padding: 0 12px;
+      background: #fff;
+      color: #0f172a;
+      font-size: 15px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      transition:
+        border-color .15s,
+        box-shadow .15s;
+    }
+    .inp:hover {
+      border-color: #94a3b8;
+    }
+    .inp:focus {
+      outline: none;
+      border-color: #14766b;
+      box-shadow:
+        0 0 0 3px rgba(20,118,107,.18);
+    }
+    .lbl {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #334155;
+    }
+    .unit {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 13px;
+      color: #64748b;
+      pointer-events: none;
+    }
+    .nav-link.active {
+      background: rgba(255,255,255,.12);
+      color: #fff;
+    }
+  </style>
+</head>
+<body
+  class="bg-slate-100 font-sans text-slate-900 antialiased"
+>
+<div class="flex min-h-screen">
+
+  <!-- =========================
+       MAIN
+  ========================== -->
+  <main class="flex-1 min-w-0">
+    <!-- Mobile Header -->
+    <div
+      class="lg:hidden bg-brand-900 text-white px-6 py-5"
+    >
+      <h1 class="text-lg font-bold">
+        পূর্বাচল প্রকল্পের ক্রয় দলিলের তথ্য সংরক্ষণ ফরম
+      </h1>
+    </div>
+    <form
+      id="dataForm"
+      class="max-w-6xl mx-auto px-6 lg:px-10 pt-8 lg:pt-10 pb-32"
+    >
+      <!-- =========================
+           SYSTEM METADATA
+      ========================== -->
+      <input
+        type="hidden"
+        id="recordId"
+        name="recordId"
+      >
+      <!-- PAGE TITLE -->
+      <div class="hidden lg:block sticky top-0 left-0 right-0 z-30 mb-8 bg-brand-900 backdrop-blur-md border-b border-slate-700/50 shadow-sm">
+        <div class="max-w-7xl mx-auto py-4 px-6 lg:px-10">
+          <h2 class="text-2xl font-bold text-white">
+            পূর্বাচল প্রকল্পের ক্রয় দলিলের তথ্য সংরক্ষণ ফরম
+          </h2>
+          <p class="mt-1 text-slate-300">
+            নিচের সকল ঘরে তথ্য পূরণ করে সংরক্ষণ করুন।
+          </p>
+        </div>
+      </div>
+      <div class="space-y-6">
+        <!-- =========================
+             SECTION 1
+        ========================== -->
+        <section
+          id="sec4"
+          class="scroll-mt-6 bg-white rounded-xl border border-slate-200 shadow-sm"
+        >
+          <div
+            class="px-7 py-4 border-b border-slate-200 bg-slate-50/70 rounded-t-xl"
+          >
+            <h3 class="font-semibold text-slate-800">
+              সংশ্লিষ্ট ব্যক্তিগণের বিবরণ
+            </h3>
+          </div>
+          <div
+            class="p-7 grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-5"
+          >
+            <div>
+              <label
+                class="lbl"
+                for="donor"
+              >
+                দাতার নাম
+              </label>
+              <input
+                class="inp"
+                type="text"
+                id="donor"
+                name="donor"
+              >
+            </div>
+            <div>
+              <label
+                class="lbl"
+                for="grantee"
+              >
+                গ্রহিতার নাম
+              </label>
+              <select
+                class="inp"
+                id="grantee"
+                name="grantee"
+                required
+              >
+                <option value="">
+                  গ্রহিতা নির্বাচন করুন
+                </option>
+              </select>
+            </div>
+            <div>
+              <label
+                class="lbl"
+                for="medium"
+              >
+                মাধ্যমের নাম
+              </label>
+              <input
+                class="inp"
+                id="medium"
+                type="text"                
+                name="medium"
+              >
+            </div>
+            <!-- <div>
+              <label
+                class="lbl"
+                for="medium"
+              >
+                মাধ্যমের নাম
+              </label>
+              <select
+                class="inp"
+                id="medium"
+                name="medium"
+                required
+              >
+                <option value="">
+                  মাধ্যম নির্বাচন করুন
+                </option>
+              </select>
+            </div> -->
+          </div>
+        </section>
+        <!-- =========================
+             SECTION 2
+        ========================== -->
+        <section
+          id="sec1"
+          class="scroll-mt-6 bg-white rounded-xl border border-slate-200 shadow-sm"
+        >
+          <div
+            class="px-7 py-4 border-b border-slate-200 bg-slate-50/70 rounded-t-xl"
+          >
+            <h3 class="font-semibold text-slate-800">
+              ফাইল ও অবস্থান সংক্রান্ত তথ্য
+            </h3>
+          </div>
+          <div
+            class="p-7 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-x-6 gap-y-5"
+          >
+            <div>
+              <label
+                class="lbl"
+                for="oldFileNo"
+              >
+                পুরাতন ফাইল নং
+              </label>
+              <input
+                class="inp"
+                type="text"
+                id="oldFileNo"
+                name="oldFileNo"
+              >
+            </div>
+            <div>
+              <label
+                class="lbl"
+                for="newFileNo"
+              >
+                নতুন ফাইল নং
+              </label>
+              <input
+                class="inp"
+                type="text"
+                id="newFileNo"
+                name="newFileNo"
+              >
+            </div>
+            <div>
+              <label
+                class="lbl"
+                for="mouza"
+              >
+                মৌজা
+              </label>
+              <select
+                class="inp"
+                id="mouza"
+                name="mouza"
+                required
+              >
+                <option value="">
+                  মৌজা নির্বাচন করুন
+                </option>
+              </select>
+            </div>
+            <div>
+              <label
+                class="lbl"
+                for="thana"
+              >
+                থানা
+              </label>
+              <select
+                class="inp"
+                id="thana"
+                name="thana"
+                required
+              >
+                <option value="">
+                  থানা নির্বাচন করুন
+                </option>
+              </select>
+            </div>
+          </div>
+        </section>
+        <!-- =========================
+             SECTION 3
+        ========================== -->
+        <section
+          id="sec2"
+          class="scroll-mt-6 bg-white rounded-xl border border-slate-200 shadow-sm"
+        >
+          <div
+            class="px-7 py-4 border-b border-slate-200 bg-slate-50/70 rounded-t-xl"
+          >
+            <h3 class="font-semibold text-slate-800">
+              দলিলের বিবরণ
+            </h3>
+          </div>
+          <div
+            class="p-7 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-x-6 gap-y-5"
+          >
+            <div>
+              <label
+                class="lbl"
+                for="deedType"
+              >
+                দলিলের ধরণ
+              </label>
+              <select
+                class="inp"
+                id="deedType"
+                name="deedType"
+                required
+              >
+                <option value="">
+                  দলিলের ধরণ নির্বাচন করুন
+                </option>
+              </select>
+            </div>
+            <div>
+              <label
+                class="lbl"
+                for="granteeCode"
+              >
+                গ্রহিতা কোম্পানির নাম
+              </label>
+              <select
+                class="inp"
+                id="granteeCode"
+                name="granteeCode"
+                required
+              >
+                <option value="">
+                  গ্রহিতা কোম্পানি নির্বাচন করুন
+                </option>
+              </select>
+            </div>
+            <div>
+              <label
+                class="lbl"
+                for="deedNo"
+              >
+                দলিল নম্বর
+              </label>
+              <input
+                class="inp"
+                type="text"
+                id="deedNo"
+                name="deedNo"
+              >
+            </div>
+            <div>
+              <label
+                class="lbl"
+                for="deedDate"
+              >
+                দলিলের তারিখ
+              </label>
+              <input
+                class="inp"
+                type="date"
+                id="deedDate"
+                name="deedDate"
+              >
+            </div>
+          </div>
+        </section>
+        <!-- =========================
+             SECTION 4
+        ========================== -->
+        <section
+          id="sec3"
+          class="scroll-mt-6 bg-white rounded-xl border border-slate-200 shadow-sm"
+        >
+          <div
+            class="px-7 py-4 border-b border-slate-200 bg-slate-50/70 rounded-t-xl"
+          >
+            <h3 class="font-semibold text-slate-800">
+              খতিয়ান
+            </h3>
+          </div>
+          <div
+            class="p-7 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-6 gap-y-5"
+          >
+        <!-- সি.এস খতিয়ান -->
+            <div>
+              <label
+                class="lbl"
+                for="csKhatian"
+              >
+                সি.এস খতিয়ান
+              </label>
+              <input
+                class="inp"
+                type="text"
+                id="csKhatian"
+                name="csKhatian"
+              >
+            </div>
+        <!-- এস.এ খতিয়ান -->
+            <div>
+              <label
+                class="lbl"
+                for="saKhatian"
+              >
+                এস.এ খতিয়ান
+              </label>
+              <input
+                class="inp"
+                type="text"
+                id="saKhatian"
+                name="saKhatian"
+              >
+            </div>
+        <!-- আর.এস খতিয়ান -->
+            <div>
+              <label
+                class="lbl"
+                for="rsKhatian"
+              >
+                আর.এস খতিয়ান
+              </label>
+              <input
+                class="inp"
+                type="text"
+                id="rsKhatian"
+                name="rsKhatian"
+              >
+            </div>
+        <!-- মিউটেশন কেস নং -->
+            <div>
+              <label
+                class="lbl"
+                for="mutationCase"
+              >
+                মিউটেশন কেস নং
+              </label>
+              <input
+                class="inp"
+                type="text"
+                id="mutationCase"
+                name="mutationCase"
+              >
+            </div>
+        <!-- মিউটেশন খতিয়ান -->
+            <div>
+              <label
+                class="lbl"
+                for="mutationKhatian"
+              >
+                মিউটেশন খতিয়ান
+              </label>
+              <input
+                class="inp"
+                type="text"
+                id="mutationKhatian"
+                name="mutationKhatian"
+              >
+            </div>
+
+          </div>
+        </section>
+        <!-- =========================
+             SECTION 5
+        ========================== -->
+        <section
+          id="sec3"
+          class="scroll-mt-6 bg-white rounded-xl border border-slate-200 shadow-sm"
+        >
+          <div
+            class="px-7 py-4 border-b border-slate-200 bg-slate-50/70 rounded-t-xl"
+          >
+            <h3 class="font-semibold text-slate-800">
+            দাগ ও জমির পরিমাণ
+            </h3>
+          </div>
+          <div
+            class="p-7 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-x-6 gap-y-5"
+          >
+        <!-- সি.এস দাগ 1-->
+            <div>
+              <label
+                class="lbl"
+                for="csDag1"
+              >
+                1.  সি.এস দাগ
+              </label>
+              <input
+                class="inp"
+                type="text"
+                id="csDag1"
+                name="csDag1"
+              >
+            </div>
+        <!-- এস.এ দাগ 1-->
+            <div>
+              <label
+                class="lbl"
+                for="saDag1"
+              >
+                এস.এ দাগ
+              </label>
+              <input
+                class="inp"
+                type="text"
+                id="saDag1"
+                name="saDag1"
+              >
+            </div>
+        <!-- আর.এস দাগ 1-->
+            <div>
+              <label
+                class="lbl"
+                for="rsDag1"
+              >
+                আর.এস দাগ
+              </label>
+              <input
+                class="inp"
+                type="text"
+                id="rsDag1"
+                name="rsDag1"
+              >
+            </div>
+        <!-- ক্রয়কৃত জমি 1-->
+            <div class="">
+              <label
+                class="lbl"
+                for="purchasedLand1"
+              >
+                ক্রয়কৃত জমি
+              </label>
+              <div class="relative">
+                <input
+                  class="inp pr-16"
+                  type="number"
+                  step="0.01"
+                  min="0"
+                  id="purchasedLand1"
+                  name="purchasedLand1"
+                >
+                <span class="unit">
+                  শতাংশ
+                </span>
+              </div>
+            </div>
+
+        <!-- সি.এস দাগ 2-->
+            <div>
+              <label
+                class="lbl"
+                for="csDag2"
+              >
+                2.  সি.এস দাগ
+              </label>
+              <input
+                class="inp"
+                type="text"
+                id="csDag2"
+                name="csDag2"
+              >
+            </div>
+        <!-- এস.এ দাগ 2-->
+            <div>
+              <label
+                class="lbl"
+                for="saDag2"
+              >
+                এস.এ দাগ
+              </label>
+              <input
+                class="inp"
+                type="text"
+                id="saDag2"
+                name="saDag2"
+              >
+            </div>
+        <!-- আর.এস দাগ 2-->
+            <div>
+              <label
+                class="lbl"
+                for="rsDag2"
+              >
+                আর.এস দাগ
+              </label>
+              <input
+                class="inp"
+                type="text"
+                id="rsDag2"
+                name="rsDag2"
+              >
+            </div>
+        <!-- ক্রয়কৃত জমি 2-->
+            <div class="">
+              <label
+                class="lbl"
+                for="purchasedLand2"
+              >
+                ক্রয়কৃত জমি
+              </label>
+              <div class="relative">
+                <input
+                  class="inp pr-16"
+                  type="number"
+                  step="0.01"
+                  min="0"
+                  id="purchasedLand2"
+                  name="purchasedLand2"
+                >
+                <span class="unit">
+                  শতাংশ
+                </span>
+              </div>
+            </div>
+        <!-- সি.এস দাগ 3-->
+            <div>
+              <label
+                class="lbl"
+                for="csDag3"
+              >
+                3.  সি.এস দাগ
+              </label>
+              <input
+                class="inp"
+                type="text"
+                id="csDag3"
+                name="csDag3"
+              >
+            </div>
+        <!-- এস.এ দাগ 3-->
+            <div>
+              <label
+                class="lbl"
+                for="saDag3"
+              >
+                এস.এ দাগ
+              </label>
+              <input
+                class="inp"
+                type="text"
+                id="saDag3"
+                name="saDag3"
+              >
+            </div>
+        <!-- আর.এস দাগ 3-->
+            <div>
+              <label
+                class="lbl"
+                for="rsDag3"
+              >
+                আর.এস দাগ
+              </label>
+              <input
+                class="inp"
+                type="text"
+                id="rsDag3"
+                name="rsDag3"
+              >
+            </div>
+
+        <!-- ক্রয়কৃত জমি 3-->
+            <div class="">
+              <label
+                class="lbl"
+                for="purchasedLand3"
+              >
+                ক্রয়কৃত জমি
+              </label>
+              <div class="relative">
+                <input
+                  class="inp pr-16"
+                  type="number"
+                  step="0.01"
+                  min="0"
+                  id="purchasedLand3"
+                  name="purchasedLand3"
+                >
+                <span class="unit">
+                  শতাংশ
+                </span>
+              </div>
+            </div>
+        <!-- সি.এস দাগ 4-->
+            <div>
+              <label
+                class="lbl"
+                for="csDag4"
+              >
+                4.  সি.এস দাগ
+              </label>
+              <input
+                class="inp"
+                type="text"
+                id="csDag4"
+                name="csDag4"
+              >
+            </div>
+        <!-- এস.এ দাগ 4-->
+            <div>
+              <label
+                class="lbl"
+                for="saDag4"
+              >
+                এস.এ দাগ
+              </label>
+              <input
+                class="inp"
+                type="text"
+                id="saDag4"
+                name="saDag4"
+              >
+            </div>
+        <!-- আর.এস দাগ 4-->
+            <div>
+              <label
+                class="lbl"
+                for="rsDag4"
+              >
+                আর.এস দাগ
+              </label>
+              <input
+                class="inp"
+                type="text"
+                id="rsDag4"
+                name="rsDag4"
+              >
+            </div>
+
+        <!-- ক্রয়কৃত জমি 4-->
+            <div class="">
+              <label
+                class="lbl"
+                for="purchasedLand4"
+              >
+                ক্রয়কৃত জমি
+              </label>
+              <div class="relative">
+                <input
+                  class="inp pr-16"
+                  type="number"
+                  step="0.01"
+                  min="0"
+                  id="purchasedLand4"
+                  name="purchasedLand4"
+                >
+                <span class="unit">
+                  শতাংশ
+                </span>
+              </div>
+            </div>
+        <!-- সি.এস দাগ 5-->
+            <div>
+              <label
+                class="lbl"
+                for="csDag5"
+              >
+                5.  সি.এস দাগ
+              </label>
+              <input
+                class="inp"
+                type="text"
+                id="csDag5"
+                name="csDag5"
+              >
+            </div>
+        <!-- এস.এ দাগ 5-->
+            <div>
+              <label
+                class="lbl"
+                for="saDag5"
+              >
+                এস.এ দাগ
+              </label>
+              <input
+                class="inp"
+                type="text"
+                id="saDag5"
+                name="saDag5"
+              >
+            </div>
+        <!-- আর.এস দাগ 5-->
+            <div>
+              <label
+                class="lbl"
+                for="rsDag5"
+              >
+                আর.এস দাগ
+              </label>
+              <input
+                class="inp"
+                type="text"
+                id="rsDag5"
+                name="rsDag5"
+              >
+            </div>
+
+        <!-- ক্রয়কৃত জমি 5-->
+            <div class="">
+              <label
+                class="lbl"
+                for="purchasedLand5"
+              >
+                ক্রয়কৃত জমি
+              </label>
+              <div class="relative">
+                <input
+                  class="inp pr-16"
+                  type="number"
+                  step="0.01"
+                  min="0"
+                  id="purchasedLand5"
+                  name="purchasedLand5"
+                >
+                <span class="unit">
+                  শতাংশ
+                </span>
+              </div>
+            </div>
+        <!-- সি.এস দাগ 6-->
+            <div>
+              <label
+                class="lbl"
+                for="csDag6"
+              >
+                6.  সি.এস দাগ
+              </label>
+              <input
+                class="inp"
+                type="text"
+                id="csDag6"
+                name="csDag6"
+              >
+            </div>
+        <!-- এস.এ দাগ 6-->
+            <div>
+              <label
+                class="lbl"
+                for="saDag6"
+              >
+                এস.এ দাগ
+              </label>
+              <input
+                class="inp"
+                type="text"
+                id="saDag6"
+                name="saDag6"
+              >
+            </div>
+        <!-- আর.এস দাগ 6-->
+            <div>
+              <label
+                class="lbl"
+                for="rsDag6"
+              >
+                আর.এস দাগ
+              </label>
+              <input
+                class="inp"
+                type="text"
+                id="rsDag6"
+                name="rsDag6"
+              >
+            </div>
+
+        <!-- ক্রয়কৃত জমি 6-->
+            <div class="">
+              <label
+                class="lbl"
+                for="purchasedLand6"
+              >
+                ক্রয়কৃত জমি
+              </label>
+              <div class="relative">
+                <input
+                  class="inp pr-16"
+                  type="number"
+                  step="0.01"
+                  min="0"
+                  id="purchasedLand6"
+                  name="purchasedLand6"
+                >
+                <span class="unit">
+                  শতাংশ
+                </span>
+              </div>
+            </div>
+        <!-- সি.এস দাগ 7-->
+            <div>
+              <label
+                class="lbl"
+                for="csDag7"
+              >
+                7.  সি.এস দাগ
+              </label>
+              <input
+                class="inp"
+                type="text"
+                id="csDag7"
+                name="csDag7"
+              >
+            </div>
+        <!-- এস.এ দাগ 7-->
+            <div>
+              <label
+                class="lbl"
+                for="saDag7"
+              >
+                এস.এ দাগ
+              </label>
+              <input
+                class="inp"
+                type="text"
+                id="saDag7"
+                name="saDag7"
+              >
+            </div>
+        <!-- আর.এস দাগ 7-->
+            <div>
+              <label
+                class="lbl"
+                for="rsDag7"
+              >
+                আর.এস দাগ
+              </label>
+              <input
+                class="inp"
+                type="text"
+                id="rsDag7"
+                name="rsDag7"
+              >
+            </div>
+
+        <!-- ক্রয়কৃত জমি 7-->
+            <div class="">
+              <label
+                class="lbl"
+                for="purchasedLand7"
+              >
+                ক্রয়কৃত জমি
+              </label>
+              <div class="relative">
+                <input
+                  class="inp pr-16"
+                  type="number"
+                  step="0.01"
+                  min="0"
+                  id="purchasedLand7"
+                  name="purchasedLand7"
+                >
+                <span class="unit">
+                  শতাংশ
+                </span>
+              </div>
+            </div>
+        <!-- সি.এস দাগ 8-->
+            <div>
+              <label
+                class="lbl"
+                for="csDag8"
+              >
+                8.  সি.এস দাগ
+              </label>
+              <input
+                class="inp"
+                type="text"
+                id="csDag8"
+                name="csDag8"
+              >
+            </div>
+        <!-- এস.এ দাগ 8-->
+            <div>
+              <label
+                class="lbl"
+                for="saDag8"
+              >
+                এস.এ দাগ
+              </label>
+              <input
+                class="inp"
+                type="text"
+                id="saDag8"
+                name="saDag8"
+              >
+            </div>
+        <!-- আর.এস দাগ 8-->
+            <div>
+              <label
+                class="lbl"
+                for="rsDag8"
+              >
+                আর.এস দাগ
+              </label>
+              <input
+                class="inp"
+                type="text"
+                id="rsDag8"
+                name="rsDag8"
+              >
+            </div>
+
+        <!-- ক্রয়কৃত জমি 8-->
+            <div class="">
+              <label
+                class="lbl"
+                for="purchasedLand8"
+              >
+                ক্রয়কৃত জমি
+              </label>
+              <div class="relative">
+                <input
+                  class="inp pr-16"
+                  type="number"
+                  step="0.01"
+                  min="0"
+                  id="purchasedLand8"
+                  name="purchasedLand8"
+                >
+                <span class="unit">
+                  শতাংশ
+                </span>
+              </div>
+            </div>
+        <!-- সি.এস দাগ 9-->
+            <div>
+              <label
+                class="lbl"
+                for="csDag9"
+              >
+                9.  সি.এস দাগ
+              </label>
+              <input
+                class="inp"
+                type="text"
+                id="csDag9"
+                name="csDag9"
+              >
+            </div>
+        <!-- এস.এ দাগ 9-->
+            <div>
+              <label
+                class="lbl"
+                for="saDag9"
+              >
+                এস.এ দাগ
+              </label>
+              <input
+                class="inp"
+                type="text"
+                id="saDag9"
+                name="saDag9"
+              >
+            </div>
+        <!-- আর.এস দাগ 9-->
+            <div>
+              <label
+                class="lbl"
+                for="rsDag9"
+              >
+                আর.এস দাগ
+              </label>
+              <input
+                class="inp"
+                type="text"
+                id="rsDag9"
+                name="rsDag9"
+              >
+            </div>
+
+        <!-- ক্রয়কৃত জমি 9-->
+            <div class="">
+              <label
+                class="lbl"
+                for="purchasedLand9"
+              >
+                ক্রয়কৃত জমি
+              </label>
+              <div class="relative">
+                <input
+                  class="inp pr-16"
+                  type="number"
+                  step="0.01"
+                  min="0"
+                  id="purchasedLand9"
+                  name="purchasedLand9"
+                >
+                <span class="unit">
+                  শতাংশ
+                </span>
+              </div>
+            </div>
+        <!-- সি.এস দাগ 10-->
+            <div>
+              <label
+                class="lbl"
+                for="csDag10"
+              >
+                10.  সি.এস দাগ
+              </label>
+              <input
+                class="inp"
+                type="text"
+                id="csDag10"
+                name="csDag10"
+              >
+            </div>
+        <!-- এস.এ দাগ 10-->
+            <div>
+              <label
+                class="lbl"
+                for="saDag10"
+              >
+                এস.এ দাগ
+              </label>
+              <input
+                class="inp"
+                type="text"
+                id="saDag10"
+                name="saDag10"
+              >
+            </div>
+        <!-- আর.এস দাগ 10-->
+            <div>
+              <label
+                class="lbl"
+                for="rsDag10"
+              >
+                আর.এস দাগ
+              </label>
+              <input
+                class="inp"
+                type="text"
+                id="rsDag10"
+                name="rsDag10"
+              >
+            </div>
+
+        <!-- ক্রয়কৃত জমি 10-->
+            <div class="">
+              <label
+                class="lbl"
+                for="purchasedLand10"
+              >
+                ক্রয়কৃত জমি
+              </label>
+              <div class="relative">
+                <input
+                  class="inp pr-16"
+                  type="number"
+                  step="0.01"
+                  min="0"
+                  id="purchasedLand10"
+                  name="purchasedLand10"
+                >
+                <span class="unit">
+                  শতাংশ
+                </span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- =========================
+           ACTION BAR
+      ========================== -->
+      <div class="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur border-t border-slate-200 z-10">
+        <div class="max-w-7xl mx-auto px-6 lg:px-10 py-4 flex items-center justify-center gap-3">
+          <button
+            type="submit"
+            id="submitBtn"
+            class="h-11 px-7 rounded-lg bg-brand-600 hover:bg-brand-700 text-white font-semibold shadow-sm transition disabled:bg-slate-400 disabled:cursor-default focus:outline-none focus:ring-4 focus:ring-brand-500/25"
+          >
+            তথ্য সংরক্ষণ করুন
+          </button>
+          <button
+            type="button"
+            id="resetBtn"
+            class="h-11 px-6 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 font-medium transition focus:outline-none focus:ring-4 focus:ring-slate-300/40"
+          >
+            মুছে ফেলুন
+          </button>
+          <span
+            id="statusMsg"
+            class="ml-2 text-sm min-h-[20px]"
+            role="status"
+          ></span>
+        </div>
+      </div>
+    </form>
+  </main>
+</div>
+<!-- =========================
+     JAVASCRIPT
+========================== -->
+<script>
+    /*
+ * =========================
+ * JAVASCRIPT
+ * =========================
+ */
+var MASTER_DATA = {
+  mouza: [
+    '01.Kandail',
+    '02.Bonvag',
+    '03.Greedhanvhuiom',
+    '04.Mathra',
+    '05.Chowya',
+    '06.Awlahat',
+    '07.Dharmopur',
+    '08.Barobonaid',
+    '09.Cherenda',
+    '10.Choto Amdia',
+    '11.Boilain',
+    '12.Taora',
+    '13.Volabo',
+    '14.Mochartaluk',
+    '15.Kutubpur',
+    '16.Gutulia',
+    '17.Panchrukhi',
+    '18.Rupgonj',
+    '19.Chandolchira',
+    '20.Khilpara',
+    '21.Shatgaon',
+    '22.Kenduabo',
+    '23.Shontanpara'
+  ],
+  thana: [
+    'Rupganj',
+    'Narsingdi Sadar',
+    'Araihazar'
+  ],
+  deedType: [
+    'Sabkabla',
+    'Power'
+  ],
+  granteeCode: [
+    'PPP',
+    'PAP',
+    'NPL',
+    'SAN',
+    'SPC',
+    'Personal'
+  ],
+  grantee: [
+    'গ্রহিতা ১',
+    'গ্রহিতা ২',
+    'গ্রহিতা ৩'
+  ]
+};
+
+/*
+ * DOM REFERENCES
+ */
+var form = document.getElementById('dataForm');
+var submitBtn = document.getElementById('submitBtn');
+var resetBtn = document.getElementById('resetBtn');
+var statusMsg = document.getElementById('statusMsg');
+
+/*
+ * GENERATE UNIQUE RECORD ID
+ */
+function generateRecordId() {
+  var now = new Date();
+  var stamp =
+    now.getFullYear().toString() +
+    String(now.getMonth() + 1).padStart(2, '0') +
+    String(now.getDate()).padStart(2, '0') +
+    '-' +
+    String(now.getHours()).padStart(2, '0') +
+    String(now.getMinutes()).padStart(2, '0') +
+    String(now.getSeconds()).padStart(2, '0');
+  return 'REC-' + stamp;
+}
+
+/*
+ * INITIALIZE SYSTEM METADATA
+ */
+function initializeMetadata() {
+  document.getElementById('recordId').value = generateRecordId();
+}
+
+/*
+ * POPULATE SELECT
+ */
+function populateSelect(id, values) {
+  var select = document.getElementById(id);
+  values.forEach(function(value) {
+    var option = document.createElement('option');
+    option.value = value;
+    option.textContent = value;
+    select.appendChild(option);
+  });
+}
+
+/*
+ * LOAD MASTER DATA
+ */
+function loadMasterData() {
+  Object.keys(MASTER_DATA).forEach(function(key) {
+    populateSelect(key, MASTER_DATA[key]);
+  });
+}
+
+/*
+ * GET FORM DATA
+ */
+function getFormData() {
+  var data = {};
+  new FormData(form).forEach(function(value, key) {
+    data[key] = value;
+  });
+  return data;
+}
+
+/*
+ * STATUS MESSAGE
+ */
+function setStatus(text, type) {
+  statusMsg.textContent = text;
+  statusMsg.className =
+    'ml-2 text-sm min-h-[20px] ' +
+    (type === 'ok'
+      ? 'text-brand-600 font-medium'
+      : type === 'err'
+      ? 'text-red-600 font-medium'
+      : '');
+}
+
+/*
+ * LOADING STATE
+ */
+function setLoading(isLoading) {
+  submitBtn.disabled = isLoading;
+  submitBtn.textContent = isLoading ? 'সংরক্ষণ হচ্ছে...' : 'তথ্য সংরক্ষণ করুন';
+}
+
+/*
+ * FORM SUBMIT & VALIDATION
+ */
+form.addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  /*
+   * Count non-empty RS Dags and Purchased Lands (1 to 10)
+   */
+  var rsDagCount = 0;
+  var purchasedLandCount = 0;
+
+  for (var i = 1; i <= 10; i++) {
+    var rsDagVal = document.getElementById('rsDag' + i).value.trim();
+    var landVal = document.getElementById('purchasedLand' + i).value.trim();
+
+    if (rsDagVal !== '') {
+      rsDagCount++;
+    }
+    if (landVal !== '') {
+      purchasedLandCount++;
+    }
+  }
+
+  /*
+   * Validate if RS Dag and Purchased Land counts are equal
+   */
+  if (rsDagCount !== purchasedLandCount) {
+    setStatus(
+      'দয়া করে আর.এস দাগ এবং ক্রয়কৃত জমির পরিমাণ সঠিকভাবে প্রদান করুন (Please provide RS dag and Purchase land amount correctly)।',
+      'err'
+    );
+    return;
+  }
+
+  var data = getFormData();
+
+  /*
+   * Basic validation
+   */
+  if (!data.recordId) {
+    setStatus('Record ID তৈরি করা যায়নি।', 'err');
+    return;
+  }
+
+  setLoading(true);
+  setStatus('', '');
+
+  /*
+   * SEND DATA TO APPS SCRIPT
+   */
+  google.script.run
+    .withSuccessHandler(function(result) {
+      setLoading(false);
+      if (result && result.success) {
+        setStatus(
+          result.message || 'তথ্য সফলভাবে সংরক্ষণ করা হয়েছে।',
+          'ok'
+        );
+        form.reset();
+        initializeMetadata();
+      } else {
+        setStatus(
+          result && result.message ? result.message : 'তথ্য সংরক্ষণ করা যায়নি।',
+          'err'
+        );
+      }
+    })
+    .withFailureHandler(function(error) {
+      setLoading(false);
+      setStatus(
+        'ত্রুটি: ' +
+          (error && error.message ? error.message : 'অজানা সমস্যা'),
+        'err'
+      );
+    })
+    .saveData(data);
+});
+
+/*
+ * RESET BUTTON
+ */
+resetBtn.addEventListener('click', function() {
+  form.reset();
+  initializeMetadata();
+  setStatus('', '');
+});
+
+/*
+ * SIDEBAR ACTIVE STATE
+ */
+var navLinks = document.querySelectorAll('.nav-link');
+navLinks.forEach(function(link) {
+  link.addEventListener('click', function() {
+    navLinks.forEach(function(item) {
+      item.classList.remove('active');
+    });
+    link.classList.add('active');
+  });
+});
+
+/*
+ * INITIALIZE APPLICATION
+ */
+loadMasterData();
+initializeMetadata();
+</script>
+
+</body>
+</html>
