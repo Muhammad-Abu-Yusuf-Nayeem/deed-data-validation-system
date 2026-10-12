@@ -1,39 +1,38 @@
-# Deed Data Validation System
+# Deed Data Valid Data Entry System
 
-A web-based data-entry workflow for capturing land purchase deed
-information in a structured format using **Google Apps Script** and
-**Google Sheets**.
+A secure, high-concurrency, web-based data entry portal tailored for managing land and deed registration records for the Purbachal Project. Designed to replace error-prone manual spreadsheets with an intuitive, standardized, and access-controlled workflow.
 
-The project is intended to reduce inconsistent data entry, make deed
-dates unambiguous, support concurrent submissions, and establish a
-review-and-approval process before records are treated as clean data.
+A web-based data-entry workflow for capturing land purchase deed information in a structured format using Google Apps Script and Google Sheets.
 
-## Current workflow
+The project is intended to reduce inconsistent data entry, make deed dates unambiguous, support concurrent submissions, and establish a review-and-approval process before records are treated as clean data.
 
-1.  A user enters deed and land information through a web form.
-2.  Dropdowns provide standardized choices for fields such as mouza,
-    thana, deed type, and grantee company.
-3.  The form submits the data to Google Apps Script.
-4.  The backend validates basic requirements and writes a separate row
-    for each non-empty RS dag to the `Data` sheet.
-5.  A submission timestamp and the active user's email (when available)
-    are recorded with the data.
+---
 
-## Planned review workflow
+## 🚀 Key Features & Architectural Advantages
 
-The next development stage is to add a deed analyst review process:
+### 1. Secure Google Authentication & Authorization
+* **Authorized Access Only:** The system restricts entry using an external **`Users`** database sheet. Only pre-approved personnel can access the application interface.
+* **Google Identity Binding:** Leverages Google Active User Session to verify credentials securely and prevent unauthorized data modifications.
 
-1.  An analyst reviews and corrects submitted records.
-2.  The analyst marks a record as approved using a checkbox.
-3.  Approved records are transferred to a separate clean-data sheet only
-    when the required conditions are satisfied.
-4.  The transfer process should prevent duplicate transfers and preserve
-    traceability between submitted and approved records.
+### 2. Standardized Data Integrity & Dropdown Control
+* Eliminates inconsistent spelling, typographical anomalies, and variations in administrative names (e.g., Mouza, Thana, Deed Types, and Grantee Codes) by utilizing locked, dynamic master data dropdowns.
+* Prevents date ambiguity (e.g., MM/DD vs. DD/MM confusion) by employing native HTML5 standardized date pickers (`YYYY-MM-DD`).
 
-**Note:** The analyst review, approval checkbox, and conditional
-transfer are planned features; they are not implemented in the current
-code yet.
+### 3. High-Concurrency Transaction Management
+* Implements **Google Apps Script Lock Service (`LockService`)**, allowing multiple data operators (e.g., 5+ concurrent users) to submit records simultaneously without race conditions or database corruption.
 
+### 4. Accountability & Performance Auditing
+* **Automatic Record Tracking:** Every transaction generates a unique timestamped identifier (`REC-YYYYMMDD-HHMMSS`).
+* **Operator Attribution:** Automatically appends the submitter's email address to every data row, establishing clear accountability, tracking daily entry volumes, and identifying processing performance (speed/accuracy) per user.
+
+---
+
+## 📂 Project Structure
+
+- **`Code.js`**: Backend logic handling Google Sheets integration, transaction locks, and user authorization mapping.
+- **`data entry.html`**: Fully responsive frontend UI built with Tailwind CSS, featuring modern form controls, dynamic multi-dag entry rows (1 to 10), and integrated Google Sign-In gate.
+
+---
 ## Technology stack
 
 -   HTML
@@ -52,38 +51,17 @@ deed-data-validation-system/
 ├── README.md
 └── .gitignore
 ```
+## 🛠️ Setup and Deployment Guide
 
-The HTML filename must remain consistent with the filename used by
-`HtmlService.createHtmlOutputFromFile()` in `Code.gs`.
-
-## Setup
-
-1.  Create or select a Google Spreadsheet and add a sheet named `Data`.
-2.  Open **Extensions → Apps Script** from that spreadsheet.
-3.  Add the backend code to `Code.gs`.
-4.  Add the form HTML as a file named `data entry` in the Apps Script
-    project (Apps Script HTML filenames are referenced without the
-    `.html` extension).
-5.  Deploy the project as a web app with the appropriate access settings
-    for your organization.
-6.  Test submissions with non-sensitive sample data before using real
-    records.
-
-## Data handling and traceability
-
-The current implementation is designed to record:
-
--   A generated submission reference
--   Submission timestamp
--   Active user's email, when available
--   File and location details
--   Deed details and khatian references
--   Donor, grantee, and intermediary details
--   CS, SA, and RS dag references
--   Purchased land area
-
-The backend writes one row per non-empty RS dag, repeating the common
-deed information for each row.
+1. **Google Sheet Preparation:**
+   * Create a Google Sheet with a tab named **`Data`** (containing headers for Record ID, Email, Files, Mouza, Thana, Deed Info, Khatian, and Dag details).
+   * Create a second tab named **`Users`** with columns: `SL`, `Email`, and `Password Hash` (or authorized user emails).
+2. **Apps Script Deployment:**
+   * Open the Google Sheet, go to **Extensions > Apps Script**.
+   * Paste the provided `Code.js` script.
+3. **Frontend Integration:**
+   * Create an HTML file named `data entry` in the Apps Script editor and paste the HTML markup.
+   * Deploy as a **Web App** (`Execute as: Me`, `Who has access: Anyone`).
 
 ## Security
 
