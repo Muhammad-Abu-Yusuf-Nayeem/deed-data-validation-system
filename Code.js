@@ -8,13 +8,70 @@ function doGet() {
 }
 
 /**
+ * Verify Google Login using Active User Email and 'Users' Sheet
+ */
+function verifyGoogleLogin() {
+  try {
+    // ব্রাউজারে বর্তমানে যে গুগল অ্যাকাউন্ট দিয়ে লগইন করা আছে তার ইমেইল সংগ্রহ করা
+    var userEmail = Session.getActiveUser().getEmail();
+
+    if (!userEmail) {
+      return {
+        success: false,
+        message: "আপনার গুগল অ্যাকাউন্ট সনাক্ত করা যায়নি। দয়া করে ব্রাউজারে লগইন করুন।"
+      };
+    }
+
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    const sheet = ss.getSheetByName('Users');
+
+    if (!sheet) {
+      return {
+        success: false,
+        message: "'Users' নামের কোনো শিট পাওয়া যায়নি।"
+      };
+    }
+
+    const data = sheet.getDataRange().getValues();
+    var isAuthorized = false;
+
+    // Users শিটের কলাম B (Index 1) হলো Email
+    for (var i = 1; i < data.length; i++) {
+      var sheetEmail = String(data[i][1]).trim().toLowerCase();
+
+      if (sheetEmail === userEmail.toLowerCase()) {
+        isAuthorized = true;
+        break;
+      }
+    }
+
+    if (isAuthorized) {
+      return {
+        success: true,
+        message: "লগইন সফল হয়েছে।"
+      };
+    } else {
+      return {
+        success: false,
+        message: "এই ইমেইলটি (" + userEmail + ") ডেটা এন্ট্রি করার জন্য অনুমোদিত নয়।"
+      };
+    }
+
+  } catch (error) {
+    console.error(error);
+    return {
+      success: false,
+      message: "লগইন যাচাই করতে সমস্যা হয়েছে: " + error.message
+    };
+  }
+}
+
+/**
  * Saves submitted form data to the Data sheet with optimized concurrency control.
  */
 function saveData(data) {
-  // Acquire a script lock to prevent race conditions from concurrent submissions
   var lock = LockService.getScriptLock();
   
-  // Wait up to 3 seconds for other concurrent writes to finish
   try {
     var hasLock = lock.tryLock(3000); 
     if (!hasLock) {
@@ -36,14 +93,12 @@ function saveData(data) {
       throw new Error('Record ID পাওয়া যায়নি।');
     }
 
-    // Generate formatted timestamp: REC-YYYYMMDD-HHMMSS
     const now = new Date();
     const timestamp = `REC-${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}-${String(now.getHours()).padStart(2, '0')}${String(now.getMinutes()).padStart(2, '0')}${String(now.getSeconds()).padStart(2, '0')}`;
     
-    // Capture the active user's email address
-    const userEmail = Session.getActiveUser().getEmail() || 'Unknown / External User';
+    // ডাটা সেভ করার সময় অটো ইউজারের আসল ইমেইল রেকর্ড হবে
+    const userEmail = Session.getActiveUser().getEmail() || 'Web User';
 
-    // সাধারণ বা কমন তথ্যগুলো যা প্রতি রো-তে একই থাকবে
     const baseRowData = [
       timestamp,
       userEmail,
@@ -67,11 +122,9 @@ function saveData(data) {
 
     var rsDagCount = 0;
 
-    // ১ থেকে ১০ পর্যন্ত লুপ চালিয়ে নন-এম্পটি আর.এস দাগ (rsDag) গণনা করা এবং প্রতিটির জন্য আলাদা রো তৈরি করা
     for (var i = 1; i <= 10; i++) {
       var rsDag = data['rsDag' + i] || '';
 
-      // যদি আর.এস দাগ খালি না থাকে
       if (rsDag.trim() !== '') {
         rsDagCount++;
 
@@ -79,7 +132,6 @@ function saveData(data) {
         var saDag = data['saDag' + i] || '';
         var purchasedLand = data['purchasedLand' + i] || '';
 
-        // বেস ডেটার সাথে নির্দিষ্ট দাগ ও জমির পরিমাণ যুক্ত করা
         var completeRowData = baseRowData.concat([
           csDag,
           saDag,
@@ -91,9 +143,8 @@ function saveData(data) {
       }
     }
 
-    // যদি কোনো আর.এস দাগ পূরণ করা না থাকে
     if (rsDagCount === 0) {
-      throw new_Error('অন্তত একটি আর.এস দাগ পূরণ করতে হবে।');
+      throw new Error('অন্তت একটি আর.এস দাগ পূরণ করতে হবে।');
     }
 
     return {
@@ -108,7 +159,6 @@ function saveData(data) {
       message: error.message
     };
   } finally {
-    // Always release the lock so subsequent requests can proceed
     lock.releaseLock();
   }
 }
